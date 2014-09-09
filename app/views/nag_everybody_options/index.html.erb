@@ -1,0 +1,24 @@
+<h2> <%= l(:mail_options) %></h2>
+
+<% mo = NagEverybodyOptions.find_or_create_by_project_id(@project.id) %>
+
+<p>
+<%= form_tag("mail_options/#{mo.id}/edit", :method => 'post') do %>
+    <%= check_box_tag(:send_on_create, mo.id, mo.send_on_create) %>
+    <%= label_tag(:send_on_create, l(:send_on_create)) %>
+    <br>
+    <%= check_box_tag :send_on_assignee_change, mo.id,  mo.send_on_assignee_change  %>
+    <%= label_tag(:send_on_assignee_change, l(:send_on_assignee_change)) %>
+    <br>
+    <%= check_box_tag :send_on_comment, mo.id,  mo.send_on_comment  %>
+    <%= label_tag(:send_on_comment, l(:send_on_comment)) %>
+    <br>
+    <%= check_box_tag :send_on_file_upload, mo.id,  mo.send_on_file_upload  %>
+    <%= label_tag(:send_on_file_upload, l(:send_on_file_upload)) %>
+    <br>
+    <%= check_box_tag :send_on_tracker_change, mo.id,  mo.send_on_tracker_change %>
+    <%= label_tag(:send_on_tracker_change, l(:send_on_tracker_change)) %>
+    <br>
+    <%= submit_tag("Save") %>
+<% end %>
+</p>

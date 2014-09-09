@@ -1,0 +1,8 @@
+ja:
+  mail_options: 通知メール設定
+  send_on_create: 登録
+  send_on_assignee_change: 担当者変更
+  send_on_comment: コメント追加
+  send_on_file_upload: ファイル追加
+  send_on_tracker_change: トラッカー変更
+  

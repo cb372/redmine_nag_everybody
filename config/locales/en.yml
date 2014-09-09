@@ -1,0 +1,8 @@
+# English strings go here for Rails i18n
+en:
+  mail_options: Mail Options
+  send_on_create: Send mail on ticket creation
+  send_on_assignee_change: Send mail on assignee change
+  send_on_comment: Send mail on comment
+  send_on_file_upload: Send mail on file upload
+  send_on_tracker_change: Send mail on tracker change
