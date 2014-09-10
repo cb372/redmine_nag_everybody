@@ -3,6 +3,7 @@ class ReminderMailOptionsController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
+    @options = NagEverybodyOptions.find_or_create_by_project_id(@project.id)
   end
 
   def edit
