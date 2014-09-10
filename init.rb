@@ -14,9 +14,9 @@ Redmine::Plugin.register :redmine_nag_everybody do
   version '0.1.0'
   url 'https://github.com/cb372/redmine_nag_everybody'
 
-  #project_module :mail_options do 
-    #permission :view_mail_options, :mail_options => :index
-    #permission :edit_mail_options, :mail_options => :edit
-  #end
-  #menu :project_menu, :mail_options, { :controller => 'mail_options', :action => 'index' }, :caption => :mail_options, :after => :activity, :param => :project_id
+  project_module :reminder_mail_options do 
+    permission :view_reminder_mail_options, :reminder_mail_options => :index
+    permission :edit_reminder_mail_options, :reminder_mail_options => :edit
+  end
+  menu :project_menu, :reminder_mail_options, { :controller => 'reminder_mail_options', :action => 'index' }, :caption => :reminder_mail_options, :after => :activity, :param => :project_id
 end

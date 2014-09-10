@@ -55,7 +55,7 @@ module NagEverybodyMailerPatch
           end
         end
 
-        # TODO Remove any issues for projects that don't have this plugin enabled
+        # TODO Remove any watched issues for projects that don't have this plugin enabled
 
         # combine issues_by_watcher and issues_by_assignee
         issues_by_user = {}

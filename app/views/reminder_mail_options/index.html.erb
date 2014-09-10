@@ -4,9 +4,10 @@
 
 <p>
 <%= form_tag("reminder_mail_options/#{options.id}/edit", :method => 'post') do %>
+  <fieldset class="box">
     <%= check_box_tag(:send_to_watchers, options.id, options.send_to_watchers) %>
     <%= label_tag(:send_to_watchers, l(:send_to_watchers)) %>
-    <br>
-    <%= submit_tag("Save") %>
+  </fieldset>
+  <%= submit_tag("Save") %>
 <% end %>
 </p>
