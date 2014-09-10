@@ -1,8 +1,5 @@
 # English strings go here for Rails i18n
 en:
-  mail_options: Mail Options
-  send_on_create: Send mail on ticket creation
-  send_on_assignee_change: Send mail on assignee change
-  send_on_comment: Send mail on comment
-  send_on_file_upload: Send mail on file upload
-  send_on_tracker_change: Send mail on tracker change
+  reminder_mail_options: Reminder Mail Options
+  send_to_watchers: Send reminder mails to watchers as well as assignees
+  mail_body_reminder_watching: "%{count} issue(s) that you are watching are due in the next %{days} days:"

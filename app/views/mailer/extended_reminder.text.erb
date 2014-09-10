@@ -1,0 +1,19 @@
+<% unless @assigned_issues.empty? %>
+<%= l(:mail_body_reminder, :count => @assigned_issues.size, :days => @days) %>:
+
+<% @assigned_issues.each do |issue| -%>
+* <%= "#{issue.project} - #{issue.tracker} ##{issue.id}: #{issue.subject}" %>
+<% end -%>
+
+<%= @assigned_issues_url %>
+<% end %>
+
+<% unless @watched_issues.empty? %>
+<%= l(:mail_body_reminder_watching, :count => @assigned_issues.size, :days => @days) %>:
+
+<% @watched_issues.each do |issue| -%>
+* <%= "#{issue.project} - #{issue.tracker} ##{issue.id}: #{issue.subject}" %>
+<% end -%>
+
+<%= @watched_issues_url %>
+<% end %>
