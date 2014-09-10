@@ -51,11 +51,12 @@ module NagEverybodyMailerPatch
           issue.watchers.each do |watcher|
             user = User.find_by_id(watcher.user_id)
             issues_by_watcher[user] ||= []
-            issues_by_watcher[user] << issue
+
+            # Only add a watched issue if this plugin is enabled for the corresponding project
+            project_options = NagEverybodyOptions.find_by_project_id(issue.project_id) || NagEverybodyOptions.new
+            issues_by_watcher[user] << issue if project_options.send_to_watchers
           end
         end
-
-        # TODO Remove any watched issues for projects that don't have this plugin enabled
 
         # combine issues_by_watcher and issues_by_assignee
         issues_by_user = {}
@@ -70,7 +71,9 @@ module NagEverybodyMailerPatch
         end
 
         issues_by_user.each do |user, issues|
-          extended_reminder(user, issues[:assigned], issues[:watching], days).deliver if user.is_a?(User) && user.active?
+          if user.is_a?(User) && user.active? && issues[:assigned].size + issues[:watching].size > 0
+            extended_reminder(user, issues[:assigned], issues[:watching], days).deliver
+          end
         end
       end
 
