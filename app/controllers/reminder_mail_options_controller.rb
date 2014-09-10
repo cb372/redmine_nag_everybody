@@ -9,11 +9,9 @@ class ReminderMailOptionsController < ApplicationController
   def edit
     options = NagEverybodyOptions.find(params[:id])
     options.send_to_watchers = !params[:send_to_watchers].nil?
+    options.save!
 
-    if options.save
-      flash[:notice] = "Saved Options"
-    end
-
+    flash[:notice] = "Saved Options"
     redirect_to request.referer
   end
 end
