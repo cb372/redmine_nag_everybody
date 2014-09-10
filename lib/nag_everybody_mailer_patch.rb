@@ -7,10 +7,10 @@ module NagEverybodyMailerPatch
       # Get the issues due within the next few days, grouped by assignee
       # i.e. a hash of (user => list of assigned issues)
       def issues_by_assignee_for_reminder(days, project, tracker, user_ids)
-        by_assignee_scope = Issue.open.where("#{Issue.table_name}.assigned_to_id IS NOT NULL" +
-          " AND #{Project.table_name}.status = #{Project::STATUS_ACTIVE}" +
-          " AND #{Issue.table_name}.due_date <= ?", days.day.from_now.to_date
-        )
+        by_assignee_scope = Issue.open
+          .where("#{Issue.table_name}.assigned_to_id IS NOT NULL")
+          .where("#{Project.table_name}.status = #{Project::STATUS_ACTIVE}")
+          .where("#{Issue.table_name}.due_date <= ?", days.day.from_now.to_date)
         by_assignee_scope = by_assignee_scope.where(:assigned_to_id => user_ids) if user_ids.present?
         by_assignee_scope = by_assignee_scope.where(:project_id => project.id) if project
         by_assignee_scope = by_assignee_scope.where(:tracker_id => tracker.id) if tracker
@@ -31,10 +31,9 @@ module NagEverybodyMailerPatch
       # Get the issues due within the next few days, grouped by watcher
       # i.e. a hash of (user => list of issues they are watching)
       def issues_by_watcher_for_reminder(days, project, tracker, user_ids)
-        by_watcher_scope = Issue.open.where(
-          "#{Project.table_name}.status = #{Project::STATUS_ACTIVE}" +
-          " AND #{Issue.table_name}.due_date <= ?", days.day.from_now.to_date
-        )
+        by_watcher_scope = Issue.open
+          .where("#{Project.table_name}.status = #{Project::STATUS_ACTIVE}")
+          .where("#{Issue.table_name}.due_date <= ?", days.day.from_now.to_date)
         by_watcher_scope = by_watcher_scope.where("EXISTS(SELECT 1 FROM watchers WHERE watchable_id = issues.id AND watchable_type = 'Issue' AND user_id IN (?))", user_ids) if user_ids.present?
         by_watcher_scope = by_watcher_scope.where(:project_id => project.id) if project
         by_watcher_scope = by_watcher_scope.where(:tracker_id => tracker.id) if tracker
@@ -99,7 +98,6 @@ module NagEverybodyMailerPatch
 
       # Send a reminder email including both assigned and watched issues
       def extended_reminder(user, assigned_issues, watched_issues, days)
-        puts "Sending reminder mail to #{user.mail}"
         set_language_if_valid user.language
         @assigned_issues = assigned_issues
         @watched_issues = watched_issues
