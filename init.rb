@@ -2,7 +2,6 @@ Rails.configuration.to_prepare do
   # Guards against including the module multiple time (like in tests)
   # and registering multiple callbacks
   unless Mailer.included_modules.include? NagEverybodyMailerPatch
-    # Use prepend because we want to replace the existing method
     Mailer.send(:include, NagEverybodyMailerPatch)
   end 
 end
